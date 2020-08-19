@@ -7,8 +7,8 @@ class ShoppingList(models.Model):
   category = models.CharField(max_length=120, blank=True, default='')
   item = models.CharField(max_length=120)
   description = models.TextField(blank=True, default='')
-  importance = models.IntegerField(blank=True)
-  due_date = models.TimeField(blank=True)
+  importance = models.IntegerField(blank=True, null=True)
+  due_date = models.TimeField(blank=True, null=True)
   bought = models.BooleanField(default=False)
 
   def _str_(self):
