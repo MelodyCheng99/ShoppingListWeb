@@ -19,7 +19,7 @@ from rest_framework import routers
 from shoppingList import views
 
 router = routers.DefaultRouter()
-router.register(r'shoppingLists', views.ShoppingListView, 'todo')
+router.register(r'shoppingLists', views.ShoppingListView, 'shoppingList')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
