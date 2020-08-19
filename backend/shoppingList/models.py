@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class ShoppingList(models.Model):
-  list = models.CharField(max_length=120)
+  list_name = models.CharField(max_length=120)
   category = models.CharField(max_length=120, blank=True, default='')
   item = models.CharField(max_length=120)
   description = models.TextField(blank=True, default='')
