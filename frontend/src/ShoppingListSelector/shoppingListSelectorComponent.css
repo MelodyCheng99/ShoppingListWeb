@@ -5,7 +5,39 @@
     flex-direction: column;
 }
 
-.textClass {
-    margin-top: 5%;
-    font-size: 16px;
+.dropdownContainer {
+    margin-top: 20%;
+}
+
+.button {
+    margin-top: 2%;
+    border: none;
+    color: white;
+    border-radius: 24px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 16px;
+}
+
+.button:focus {
+    background-color: #0277bd;
+    border-radius: 24px;
+    outline: none;
+}
+
+.goToListButton {
+    background-color: #0288d1;
+}
+
+.goToListButton:focus {
+    background-color: #0277bd;
+}
+
+.createListButton {
+    background-color: #009900;
+}
+
+.createListButton:focus {
+    background-color: #008000;
 }
