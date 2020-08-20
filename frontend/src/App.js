@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
+import ShoppingListSelectorComponent from './ShoppingListSelector/shoppingListSelectorComponent';
+import 'semantic-ui-css/semantic.min.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -26,9 +28,7 @@ class App extends React.Component {
   render() {
     return (
       this.state.listName == null ? (
-        <div>
-          {this.state.listNames.join(', ')}
-        </div>
+        <ShoppingListSelectorComponent listNames={this.state.listNames} />
       ) : null
     )
   }

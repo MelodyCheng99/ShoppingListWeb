@@ -1,0 +1,11 @@
+.mainScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%
+}
+
+.textClass {
+    font-size: 16px;
+}
