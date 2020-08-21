@@ -19,7 +19,9 @@ from rest_framework import routers
 from shoppingList import views
 
 router = routers.DefaultRouter()
-router.register(r'shoppingLists', views.ShoppingListView, 'shoppingList')
+router.register(r'shoppingListList', views.ShoppingListListView, 'shoppingListList')
+router.register(r'shoppingListCategory', views.ShoppingListCategoryView, 'shoppingListCategory')
+router.register(r'shoppingListItem', views.ShoppingListItemView, 'shoppingListItem')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
