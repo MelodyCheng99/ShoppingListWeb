@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   getListNames() {
-    axios.get('http://localhost:8000/api/shoppingLists/lists/')
+    axios.get('http://localhost:8000/api/shoppingListList/lists/')
       .then(res => this.setState({ listNames: res.data }))
       .catch(err => console.log(err));
   }
