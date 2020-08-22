@@ -16,7 +16,7 @@ class ShoppingListCategory(models.Model):
 
 class ShoppingListItem(models.Model):
   item = models.CharField(max_length=120)
-  description = models.TextField(blank=True, default='')
+  description = models.TextField(blank=True, null=True, default='')
   importance = models.IntegerField(blank=True, null=True)
   due_date = models.DateField(blank=True, null=True)
   bought = models.BooleanField(default=False)

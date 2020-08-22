@@ -1,6 +1,7 @@
 import React from 'react'
 import ShoppingListItem from '../ShoppingListItem/shoppingListItemComponent'
 import NonCategorizedList from '../NonCategorizedList/nonCategorizedListComponent'
+import CreateItem from '../CreateItem/createItemComponent'
 
 import './categorizedListComponent.css'
 
@@ -9,8 +10,11 @@ class CategorizedList extends React.Component {
         super(props)
         this.state = {
             items: props.items,
+            listName: props.listName,
+            listNameId: props.listNameId,
             categories: Object.keys(props.items['categorized_items']),
-            selectedCategoryItems: null
+            selectedCategoryItems: null,
+            createItem: false
         }
     }
 
@@ -20,8 +24,18 @@ class CategorizedList extends React.Component {
         })
     }
 
+    createItem() {
+        this.setState({
+            createItem: true
+        })
+    }
+
     render() {
-        if (this.state.selectedCategoryItems != null) {
+        if (this.state.createItem) {
+            return <CreateItem 
+                listName={this.state.listName} 
+                listNameId={this.state.listNameId} />
+        } else if (this.state.selectedCategoryItems != null) {
             return <NonCategorizedList items={this.state.selectedCategoryItems} />
         } else {
             let categoryViews = []
@@ -40,7 +54,9 @@ class CategorizedList extends React.Component {
             let itemViews = []
             this.state.items['non_categorized_items'].forEach(item => {
                 itemViews.push(
-                    <ShoppingListItem item={item} />
+                    <ShoppingListItem 
+                        key={item.item}
+                        item={item} />
                 )
             })
 
@@ -51,6 +67,12 @@ class CategorizedList extends React.Component {
 
                     <span className="title"><b>Items</b></span>
                     {itemViews}
+
+                    <button className="createItemButton"
+                        onClick={() => this.createItem()}
+                    >
+                        Create Item
+                    </button>
                 </div>
             )
         }

@@ -1,35 +1,18 @@
-.screenContainer {
+.createItemContainer {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
     margin-left: 3%;
+    width: 33%;
 }
 
-.categoryButton {
-    border: none;
-    color: white;
-    border-radius: 0;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 24px;
-    cursor: pointer;
-    padding: 16px;
-    background-color: #009900;
-    margin-top: 1%;
-}
-
-.categoryButton:focus {
-    background-color: #008000;
-    outline: none;
-}
-
-.title {
+.textClass {
+    font-size: 16px;
     margin-top: 3%;
-    font-size: 24px;
 }
 
-.createItemButton {
+.addItemButton {
     border: none;
     color: white;
     border-radius: 0;
@@ -42,7 +25,7 @@
     margin-top: 3%;
 }
 
-.createItemButton:focus {
+.addItemButton:focus {
     background-color: #0277bd;
     outline: none;
 }

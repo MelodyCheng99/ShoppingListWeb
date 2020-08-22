@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import ShoppingListListSerializer, ShoppingListCategorySerializer, ShoppingListItemSerializer
 from .models import ShoppingListList, ShoppingListCategory, ShoppingListItem
+from datetime import datetime
 
 # Create your views here.
 
@@ -65,3 +66,20 @@ class ShoppingListCategoryView(viewsets.ModelViewSet):
 class ShoppingListItemView(viewsets.ModelViewSet):
   serializer_class = ShoppingListItemSerializer
   queryset = ShoppingListItem.objects.all()
+
+  def create(self, request):
+    if request.data['due_date'] != None:
+      request.data['due_date'] = datetime.strptime(request.data['due_date'], '%Y-%m-%d').date()
+
+    serializer = self.serializer_class(data=request.data)
+    if serializer.is_valid():
+      ShoppingListItemSerializer.create(self, request.data)
+      return Response(
+        serializer.validated_data,
+        status=status.HTTP_201_CREATED
+      )
+
+    return Response({
+      'status': 'Bad request',
+      'message': 'Could not create item'
+    }, status=status.HTTP_400_BAD_REQUEST)

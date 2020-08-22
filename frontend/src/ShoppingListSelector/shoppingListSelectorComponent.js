@@ -12,6 +12,7 @@ class ShoppingListSelector extends React.Component {
             listNames: props.listNames,
             shoppingListOptions: [],
             listNameId: null,
+            listName: null,
             items: null
         }
     }
@@ -36,12 +37,13 @@ class ShoppingListSelector extends React.Component {
         this.setState({
             listNameId: this.state.listNames.find(listName =>
                 listName.list_name === value
-            ).id
+            ).id,
+            listName: value
         })
     }
 
     handleSelectList() {
-        if (this.state.listNameId != null) {
+        if (this.state.listNameId != null && this.state.listName != null) {
             axios.get(`http://localhost:8000/api/shoppingListList/${this.state.listNameId}/items`)
                 .then(res => this.setState({ items: res.data }))
                 .catch(err => console.log(err));
@@ -50,7 +52,10 @@ class ShoppingListSelector extends React.Component {
 
     render() {
         if (this.state.items != null) {
-            return <CategorizedList items={this.state.items} />
+            return <CategorizedList 
+                items={this.state.items} 
+                listName={this.state.listName} 
+                listNameId={this.state.listNameId} />
         } else {
             return (
                 <div className="mainScreen">

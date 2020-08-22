@@ -19,6 +19,8 @@ class ShoppingListItemSerializer(serializers.ModelSerializer):
     shopping_list_list = ShoppingListList.objects.get(list_name=validated_data['list_name'])
     validated_data['list_name'] = shopping_list_list
 
+    print(type(validated_data['due_date']))
+
     if 'category' in validated_data:
       shopping_list_category = ShoppingListCategory.objects.get(category=validated_data['category'])
       validated_data['category'] = shopping_list_category
