@@ -10,3 +10,21 @@
     margin-top: 3%;
     font-size: 24px;
 }
+
+.createItemButton {
+    border: none;
+    color: white;
+    border-radius: 0;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 24px;
+    cursor: pointer;
+    padding: 16px;
+    background-color: #0288d1;
+    margin-top: 3%;
+}
+
+.createItemButton:focus {
+    background-color: #0277bd;
+    outline: none;
+}

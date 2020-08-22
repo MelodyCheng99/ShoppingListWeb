@@ -12,6 +12,7 @@ class CreateItem extends React.Component {
         this.state = {
             listName: props.listName,
             listNameId: props.listNameId,
+            category: props.category,
             item: null,
             description: null,
             date: null,
@@ -30,7 +31,8 @@ class CreateItem extends React.Component {
             item: this.state.item,
             description: this.state.description,
             due_date: this.state.date,
-            list_name: this.state.listName
+            list_name: this.state.listName,
+            category: this.state.category
         }
 
         axios.post('http://localhost:8000/api/shoppingListItem/', body)

@@ -13,6 +13,7 @@ class CategorizedList extends React.Component {
             listName: props.listName,
             listNameId: props.listNameId,
             categories: Object.keys(props.items['categorized_items']),
+            category: null,
             selectedCategoryItems: null,
             createItem: false
         }
@@ -20,6 +21,7 @@ class CategorizedList extends React.Component {
 
     goToNonCategorizedList(category) {
         this.setState({
+            category: category,
             selectedCategoryItems: this.state.items['categorized_items'][category]
         })
     }
@@ -35,8 +37,12 @@ class CategorizedList extends React.Component {
             return <CreateItem 
                 listName={this.state.listName} 
                 listNameId={this.state.listNameId} />
-        } else if (this.state.selectedCategoryItems != null) {
-            return <NonCategorizedList items={this.state.selectedCategoryItems} />
+        } else if (this.state.selectedCategoryItems != null && this.state.category != null) {
+            return <NonCategorizedList 
+                listName={this.state.listName}
+                listNameId={this.state.listNameId}
+                category={this.state.category}
+                items={this.state.selectedCategoryItems} />
         } else {
             let categoryViews = []
             this.state.categories.forEach(category => {
