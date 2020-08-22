@@ -1,4 +1,5 @@
 import React from 'react'
+import ShoppingListItem from '../ShoppingListItem/shoppingListItemComponent'
 
 import './categorizedListComponent.css'
 
@@ -21,9 +22,21 @@ class CategorizedList extends React.Component {
             )
         })
 
+        let itemViews = []
+        this.state.items['non_categorized_items'].forEach(item => {
+            itemViews.push(
+                <ShoppingListItem item={item} />
+            )
+        })
+
         return (
-            <div className="mainScreen">
-                { categoryViews }
+            <div>
+                <div className="categoriesContainer">
+                    {categoryViews}
+                </div>
+                <div className="itemsContainer">
+                    {itemViews}
+                </div>
             </div>
         )
     }

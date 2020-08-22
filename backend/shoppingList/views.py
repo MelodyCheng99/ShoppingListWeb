@@ -42,14 +42,14 @@ class ShoppingListListView(viewsets.ModelViewSet):
           'bought'
         )
       else:
-        nonCategorizedItems.append(items.filter(category=None).values(
+        nonCategorizedItems = items.filter(category=None).values(
           'category',
           'item', 
           'description',
           'importance',
           'due_date',
           'bought'
-        ))
+        )
 
     return Response(
       {
