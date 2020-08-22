@@ -19,7 +19,7 @@ class ShoppingListItemSerializer(serializers.ModelSerializer):
     shopping_list_list = ShoppingListList.objects.get(list_name=validated_data['list_name'])
     validated_data['list_name'] = shopping_list_list
 
-    if validated_data['category'] != None:
+    if 'category' in validated_data:
       shopping_list_category = ShoppingListCategory.objects.get(category=validated_data['category'])
       validated_data['category'] = shopping_list_category
     
@@ -29,7 +29,7 @@ class ShoppingListItemSerializer(serializers.ModelSerializer):
     shopping_list_list = ShoppingListList.objects.get(list_name=validated_data['list_name'])
     instance.list_name = shopping_list_list
 
-    if validated_data['category'] != None:
+    if 'category' in validated_data:
       shopping_list_category = ShoppingListCategory.objects.get(category=validated_data['category'])
       instance.category = shopping_list_category
 

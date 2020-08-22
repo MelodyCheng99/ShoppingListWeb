@@ -5,10 +5,6 @@
     flex-direction: column;
 }
 
-.dropdownContainer {
-    margin-top: 20%;
-}
-
 .button {
     margin-top: 2%;
     border: none;
@@ -20,23 +16,10 @@
     padding: 16px;
 }
 
-.button:focus {
-    border-radius: 24px;
-    outline: none;
-}
-
-.goToListButton {
-    background-color: #0288d1;
-}
-
-.goToListButton:focus {
-    background-color: #0277bd;
-}
-
-.createListButton {
+.categoryButton {
     background-color: #009900;
 }
 
-.createListButton:focus {
+.categoryButton:focus {
     background-color: #008000;
 }

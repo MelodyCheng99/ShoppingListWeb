@@ -9,9 +9,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       listNames: null,
-      listName: null,
-      category: null,
-      items: null
+      listName: null
     }
   }
 
@@ -26,11 +24,9 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      this.state.listName == null && this.state.listNames != null ? (
-        <ShoppingListSelectorComponent listNames={this.state.listNames} />
-      ) : null
-    )
+    return this.state.listNames != null ?
+        <ShoppingListSelectorComponent listNames={this.state.listNames} /> :
+        null
   }
 }
 
