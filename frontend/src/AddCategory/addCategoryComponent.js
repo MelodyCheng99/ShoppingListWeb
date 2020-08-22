@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import CreateItem from '../CreateItem/createItemComponent'
+import CreateCategory from '../CreateCategory/createCategoryComponent'
 
 import './addCategoryComponent.css'
 
@@ -18,7 +19,8 @@ class AddCategory extends React.Component {
                 }
             }),
             selectedCategory: null,
-            addItem: false
+            addItem: false,
+            createCategory: false
         }
     }
 
@@ -34,8 +36,18 @@ class AddCategory extends React.Component {
         })
     }
 
+    createNewCategory() {
+        this.setState({
+            createCategory: true
+        })
+    }
+
     render() {
-        if (this.state.addItem) {
+        if (this.state.createCategory) {
+            return <CreateCategory
+                listName={this.state.listName}
+                listNameId={this.state.listNameId} />
+        } else if (this.state.addItem) {
             return <CreateItem
                 listName={this.state.listName}
                 listNameId={this.state.listNameId}
@@ -53,6 +65,10 @@ class AddCategory extends React.Component {
                     <button className="selectCategoryButton"
                         onClick={() => this.selectCategory()}>
                         Select Existing Category
+                    </button>
+                    <button className="createNewCategoryButton"
+                        onClick={() => this.createNewCategory()}>
+                        Create New Category
                     </button>
                 </div>
             )
