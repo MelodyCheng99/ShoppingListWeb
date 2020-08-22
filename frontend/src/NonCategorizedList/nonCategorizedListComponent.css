@@ -1,0 +1,12 @@
+.screenContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-left: 3%;
+}
+
+.title {
+    margin-top: 3%;
+    font-size: 24px;
+}
