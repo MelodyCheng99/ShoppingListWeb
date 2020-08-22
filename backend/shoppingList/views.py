@@ -69,7 +69,7 @@ class ShoppingListItemView(viewsets.ModelViewSet):
 
   def create(self, request):
     if request.data['due_date'] != None:
-      request.data['due_date'] = datetime.strptime(request.data['due_date'], '%Y-%m-%d').date()
+      request.data['due_date'] = datetime.strptime(request.data['due_date'], '%d-%m-%Y').date()
 
     serializer = self.serializer_class(data=request.data)
     if serializer.is_valid():

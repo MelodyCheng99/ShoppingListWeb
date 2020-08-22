@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import './createItemComponent.css'
 import CategorizedList from '../CategorizedList/categorizedListComponent'
+import NonCategorizedList from '../NonCategorizedList/nonCategorizedListComponent'
 
 class CreateItem extends React.Component {
     constructor(props) {
@@ -46,10 +47,18 @@ class CreateItem extends React.Component {
 
     render() {
         if (this.state.items != null) {
-            return <CategorizedList
-                items={this.state.items}
-                listName={this.state.listName}
-                listNameId={this.state.listNameId} />
+            if (this.state.category != null) {
+                return <NonCategorizedList
+                    category={this.state.category}
+                    items={this.state.items['categorized_items'][this.state.category]}
+                    listName={this.state.listName}
+                    listNameId={this.state.listNameId} />
+            } else {
+                return <CategorizedList
+                    items={this.state.items}
+                    listName={this.state.listName}
+                    listNameId={this.state.listNameId} />
+            }
         } else {
             return (
                 <div>
