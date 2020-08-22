@@ -16,8 +16,8 @@ class CategorizedList extends React.Component {
         let categoryViews = []
         this.state.categories.forEach(category => {
             categoryViews.push(
-                <button key={category} className="button categoryButton">
-                    {category}
+                <button key={category} className="categoryButton">
+                    &#8594; {category}
                 </button>
             )
         })
@@ -30,13 +30,12 @@ class CategorizedList extends React.Component {
         })
 
         return (
-            <div>
-                <div className="categoriesContainer">
-                    {categoryViews}
-                </div>
-                <div className="itemsContainer">
-                    {itemViews}
-                </div>
+            <div className="screenContainer">
+                <span className="title"><b>Categories</b></span>
+                {categoryViews}
+
+                <span className="title"><b>Items</b></span>
+                {itemViews}
             </div>
         )
     }
