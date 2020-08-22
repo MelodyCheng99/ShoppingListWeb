@@ -2,6 +2,7 @@ import React from 'react'
 import ShoppingListItem from '../ShoppingListItem/shoppingListItemComponent'
 import NonCategorizedList from '../NonCategorizedList/nonCategorizedListComponent'
 import CreateItem from '../CreateItem/createItemComponent'
+import AddCategory from '../AddCategory/addCategoryComponent'
 
 import './categorizedListComponent.css'
 
@@ -15,7 +16,8 @@ class CategorizedList extends React.Component {
             categories: Object.keys(props.items['categorized_items']),
             category: null,
             selectedCategoryItems: null,
-            createItem: false
+            createItem: false,
+            addCategory: false
         }
     }
 
@@ -32,8 +34,19 @@ class CategorizedList extends React.Component {
         })
     }
 
+    addCategory() {
+        this.setState({
+            addCategory: true
+        })
+    }
+
     render() {
-        if (this.state.createItem) {
+        if (this.state.addCategory) {
+            return <AddCategory 
+                categories={this.state.categories}
+                listName={this.state.listName}
+                listNameId={this.state.listNameId} />
+        } else if (this.state.createItem) {
             return <CreateItem 
                 listName={this.state.listName} 
                 listNameId={this.state.listNameId} />
@@ -67,17 +80,23 @@ class CategorizedList extends React.Component {
             })
 
             return (
-                <div className="screenContainer">
+                <div className="categorizedListContainer">
                     <span className="title"><b>Categories</b></span>
                     {categoryViews}
+
+                    <button className="createButton"
+                        onClick={() => this.addCategory()}
+                    >
+                        + Add Category
+                    </button>
 
                     <span className="title"><b>Items</b></span>
                     {itemViews}
 
-                    <button className="createItemButton"
+                    <button className="createButton"
                         onClick={() => this.createItem()}
                     >
-                        Create Item
+                        + Create Item
                     </button>
                 </div>
             )
