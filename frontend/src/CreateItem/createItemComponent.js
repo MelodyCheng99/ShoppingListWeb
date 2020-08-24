@@ -63,6 +63,10 @@ class CreateItem extends React.Component {
         }
     }
 
+    deleteItem() {
+
+    }
+
     render() {
         if (this.state.items != null) {
             if (this.state.category != null) {
@@ -104,10 +108,19 @@ class CreateItem extends React.Component {
                             value={this.state.date}
                             onChange={this.handleChange} />
     
-                        <button className="addItemButton"
-                            onClick={() => this.addItem()}>
-                            + Add
-                        </button>
+                        <div className="horizontalButtonsContainer">
+                            <button className="addItemButton"
+                                onClick={() => this.addItem()}>
+                                { this.state.updatingItem ? 'Update' : '+ Add' }
+                            </button>
+                            { this.state.updatingItem ?
+                                <button className="deleteItemButton"
+                                    onClick={() => this.deleteItem()}>
+                                    - Delete
+                                </button> :
+                                null
+                            }
+                        </div>
                     </Form>
                 </div>
             )
