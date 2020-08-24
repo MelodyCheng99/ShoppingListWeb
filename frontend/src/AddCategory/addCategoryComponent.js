@@ -2,6 +2,7 @@ import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import CreateItem from '../CreateItem/createItemComponent'
 import CreateCategory from '../CreateCategory/createCategoryComponent'
+import axios from 'axios'
 
 import './addCategoryComponent.css'
 
@@ -11,17 +12,29 @@ class AddCategory extends React.Component {
         this.state = {
             listName: props.listName,
             listNameId: props.listNameId,
-            categoryOptions: props.categories.map(category => {
-                return {
-                    key: category,
-                    value: category,
-                    text: category
-                }
-            }),
+            categoryOptions: null,
             selectedCategory: null,
             addItem: false,
             createCategory: false
         }
+    }
+
+    componentDidMount() {
+        this.getAllCategories()
+    }
+
+    getAllCategories() {
+        axios.get('http://localhost:8000/api/shoppingListCategory')
+            .then(res => this.setState({
+                categoryOptions: res.data.map(categoryObj => {
+                    return {
+                        key: categoryObj.id,
+                        value: categoryObj.category,
+                        text: categoryObj.category
+                    }
+                })
+            }))
+            .then(err => console.log(err));
     }
 
     handleDropdownChange = (e, { value }) => {
@@ -51,8 +64,8 @@ class AddCategory extends React.Component {
             return <CreateItem
                 listName={this.state.listName}
                 listNameId={this.state.listNameId}
-                category={this.state.category} />
-        } else {
+                category={this.state.selectedCategory} />
+        } else if (this.state.categoryOptions != null) {
             return (
                 <div className="addExistingCategoryContainer">
                     <Dropdown
@@ -72,6 +85,8 @@ class AddCategory extends React.Component {
                     </button>
                 </div>
             )
+        } else {
+            return null
         }
     }
 }

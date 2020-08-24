@@ -72,7 +72,6 @@ class CategorizedList extends React.Component {
     render() {
         if (this.state.addCategory) {
             return <AddCategory 
-                categories={this.state.categories}
                 listName={this.state.listName}
                 listNameId={this.state.listNameId} />
         } else if (this.state.createItem) {

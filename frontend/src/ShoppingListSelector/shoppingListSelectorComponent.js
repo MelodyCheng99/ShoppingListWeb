@@ -4,6 +4,7 @@ import CategorizedList from '../CategorizedList/categorizedListComponent'
 
 import './shoppingListSelectorComponent.css'
 import axios from 'axios'
+import CreateShoppingList from '../CreateShoppingList/createShoppingListComponent'
 
 class ShoppingListSelector extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class ShoppingListSelector extends React.Component {
             shoppingListOptions: [],
             listNameId: null,
             listName: null,
-            items: null
+            items: null,
+            createShoppingList: false
         }
     }
 
@@ -50,12 +52,20 @@ class ShoppingListSelector extends React.Component {
         }
     }
 
+    createShoppingList() {
+        this.setState({
+            createShoppingList: true
+        })
+    }
+
     render() {
         if (this.state.items != null) {
             return <CategorizedList 
                 items={this.state.items} 
                 listName={this.state.listName} 
                 listNameId={this.state.listNameId} />
+        } else if (this.state.createShoppingList) {
+            return <CreateShoppingList />  
         } else {
             return (
                 <div className="mainScreen">
@@ -76,7 +86,7 @@ class ShoppingListSelector extends React.Component {
                     </button>
                     <button
                         className="button createListButton"
-                        // onClick={}
+                        onClick={() => this.createShoppingList()}
                     >
                         Create New Shopping List
                     </button>
