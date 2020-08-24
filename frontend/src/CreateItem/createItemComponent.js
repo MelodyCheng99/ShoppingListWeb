@@ -64,12 +64,20 @@ class CreateItem extends React.Component {
     }
 
     deleteItem() {
-
+        axios.delete(`http://localhost:8000/api/shoppingListItem/${this.state.itemId}`)
+            .then(_ => {
+                axios.get(`http://localhost:8000/api/shoppingListList/${this.state.listNameId}/items`)
+                    .then(res => this.setState({ items: res.data }))
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
     }
 
     render() {
         if (this.state.items != null) {
-            if (this.state.category != null) {
+            if (this.state.category != null && 
+                this.state.items['categorized_items'] != null &&
+                this.state.items['categorized_items'][this.state.category] != null) {
                 return <NonCategorizedList
                     category={this.state.category}
                     items={this.state.items['categorized_items'][this.state.category]}
