@@ -3,6 +3,7 @@ import ShoppingListItem from '../ShoppingListItem/shoppingListItemComponent'
 
 import './nonCategorizedListComponent.css'
 import CreateItem from '../CreateItem/createItemComponent'
+import axios from 'axios'
 
 class NonCategorizedList extends React.Component {
     constructor(props) {
@@ -37,6 +38,20 @@ class NonCategorizedList extends React.Component {
         })
     }
 
+    onCheckOrUncheck(itemId, item, description, date, bought, listName, category) {
+        const body = {
+            item: item,
+            description: description,
+            due_date: date,
+            bought: bought,
+            list_name: listName,
+            category: category
+        }
+
+        axios.put(`http://localhost:8000/api/shoppingListItem/${itemId}/`, body)
+            .catch(err => console.log(err));
+    }
+
     render() {
         if (this.state.createItem) {
             return <CreateItem
@@ -60,7 +75,10 @@ class NonCategorizedList extends React.Component {
                     <ShoppingListItem 
                         key={item.item}
                         item={item}
-                        onEdit={this.onEdit} />
+                        listName={this.state.listName}
+                        category={this.state.category}
+                        onEdit={this.onEdit}
+                        onCheckOrUncheck={this.onCheckOrUncheck} />
                 )
             })
 
