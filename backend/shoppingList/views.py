@@ -35,6 +35,7 @@ class ShoppingListListView(viewsets.ModelViewSet):
         category_name = category_obj.category
 
         items_response[category_name] = items.filter(category=category_id).values(
+          'id',
           'category',
           'item', 
           'description',
@@ -44,6 +45,7 @@ class ShoppingListListView(viewsets.ModelViewSet):
         )
       else:
         nonCategorizedItems = items.filter(category=None).values(
+          'id',
           'category',
           'item', 
           'description',
@@ -82,4 +84,25 @@ class ShoppingListItemView(viewsets.ModelViewSet):
     return Response({
       'status': 'Bad request',
       'message': 'Could not create item'
+    }, status=status.HTTP_400_BAD_REQUEST)
+
+  def update(self, request, pk=None):
+    if request.data['due_date'] != None:
+      request.data['due_date'] = datetime.strptime(request.data['due_date'], '%d-%m-%Y').date()
+
+    serializer = self.serializer_class(data=request.data)
+    if serializer.is_valid():
+      ShoppingListItemSerializer.update(
+        self, 
+        ShoppingListItem.objects.filter(pk=pk)[0],
+        request.data
+      )
+      return Response(
+        serializer.validated_data,
+        status=status.HTTP_201_CREATED
+      )
+
+    return Response({
+      'status': 'Bad request',
+      'message': 'Could not update item'
     }, status=status.HTTP_400_BAD_REQUEST)

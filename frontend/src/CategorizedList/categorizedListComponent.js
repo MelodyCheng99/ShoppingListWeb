@@ -17,8 +17,14 @@ class CategorizedList extends React.Component {
             category: null,
             selectedCategoryItems: null,
             createItem: false,
+            editItemId: null,
+            editItem: null,
+            editDescription: null,
+            editDate: null,
             addCategory: false
         }
+
+        this.onEdit = this.onEdit.bind(this)
     }
 
     goToNonCategorizedList(category) {
@@ -40,6 +46,15 @@ class CategorizedList extends React.Component {
         })
     }
 
+    onEdit(id, item, description, date) {
+        this.setState({
+            editItemId: id,
+            editItem: item,
+            editDescription: description,
+            editDate: date
+        })
+    }
+
     render() {
         if (this.state.addCategory) {
             return <AddCategory 
@@ -50,6 +65,15 @@ class CategorizedList extends React.Component {
             return <CreateItem 
                 listName={this.state.listName} 
                 listNameId={this.state.listNameId} />
+        } else if (this.state.editItem != null && this.state.editItemId != null) {
+            return <CreateItem
+                listName={this.state.listName}
+                listNameId={this.state.listNameId}
+                itemId={this.state.editItemId}
+                item={this.state.editItem}
+                description={this.state.editDescription}
+                date={this.state.editDate}
+                updatingItem={true} />
         } else if (this.state.selectedCategoryItems != null && this.state.category != null) {
             return <NonCategorizedList 
                 listName={this.state.listName}
@@ -75,7 +99,8 @@ class CategorizedList extends React.Component {
                 itemViews.push(
                     <ShoppingListItem 
                         key={item.item}
-                        item={item} />
+                        item={item}
+                        onEdit={this.onEdit} />
                 )
             })
 

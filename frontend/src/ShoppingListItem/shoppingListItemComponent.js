@@ -21,6 +21,15 @@ function ShoppingListItem(props) {
                         <Checkbox label={props.item.item} />
                 }
             />
+            <button className="editButton"
+                onClick={
+                    () => props.onEdit(
+                            props.item.id, 
+                            props.item.item, 
+                            props.item.description, 
+                            props.item.due_date
+                        )
+                }>  &#x270D;</button>
         </div>
     )
 }

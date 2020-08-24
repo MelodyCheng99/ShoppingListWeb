@@ -1,3 +1,10 @@
 .itemContainer {
     margin-top: 1%;
 }
+
+.editButton {
+    outline: none;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+}

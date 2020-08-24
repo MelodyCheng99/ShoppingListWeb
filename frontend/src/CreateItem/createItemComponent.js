@@ -10,14 +10,22 @@ import NonCategorizedList from '../NonCategorizedList/nonCategorizedListComponen
 class CreateItem extends React.Component {
     constructor(props) {
         super(props)
+
+        const dateObj = new Date(props.date)
+        const dateDay = dateObj.getDate() + 1
+        const dateMonth = dateObj.getMonth() + 1
+        const dateYear = dateObj.getFullYear()
+
         this.state = {
             listName: props.listName,
             listNameId: props.listNameId,
             category: props.category,
-            item: null,
-            description: null,
-            date: null,
-            items: null
+            itemId: props.itemId,
+            item: props.item,
+            description: props.description,
+            date: props.date ? dateDay + '-' + dateMonth + '-' + dateYear : null,
+            items: null,
+            updatingItem: props.updatingItem ? props.updatingItem : false
         }
     }
 
@@ -36,13 +44,23 @@ class CreateItem extends React.Component {
             category: this.state.category
         }
 
-        axios.post('http://localhost:8000/api/shoppingListItem/', body)
+        if (!this.state.updatingItem) {
+            axios.post('http://localhost:8000/api/shoppingListItem/', body)
+                .then(_ => {
+                    axios.get(`http://localhost:8000/api/shoppingListList/${this.state.listNameId}/items`)
+                        .then(res => this.setState({ items: res.data }))
+                        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
+        } else {
+            axios.put(`http://localhost:8000/api/shoppingListItem/${this.state.itemId}/`, body)
             .then(_ => {
                 axios.get(`http://localhost:8000/api/shoppingListList/${this.state.listNameId}/items`)
                     .then(res => this.setState({ items: res.data }))
                     .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
+        }
     }
 
     render() {
@@ -68,6 +86,7 @@ class CreateItem extends React.Component {
                             type="text" 
                             placeholder="Item"
                             name="item"
+                            value={this.state.item}
                             onChange={this.handleChange} />
     
                         <span className="textClass">Description</span>
@@ -75,6 +94,7 @@ class CreateItem extends React.Component {
                             rows={6} 
                             placeholder="Description" 
                             name="description"
+                            value={this.state.description}
                             onChange={this.handleChange} />
     
                         <span className="textClass">Need to buy by</span>
