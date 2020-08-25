@@ -58,6 +58,10 @@ class ShoppingListSelector extends React.Component {
         })
     }
 
+    deleteShoppingList() {
+        // TODO
+    }
+
     render() {
         if (this.state.items != null) {
             return <CategorizedList 
@@ -89,6 +93,12 @@ class ShoppingListSelector extends React.Component {
                         onClick={() => this.createShoppingList()}
                     >
                         Create New Shopping List
+                    </button>
+                    <button
+                        className="button deleteListButton"
+                        onClick={() => this.deleteShoppingList()}
+                    >
+                        Delete Shopping List
                     </button>
                 </div>
             )

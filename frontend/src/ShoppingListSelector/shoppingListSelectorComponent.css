@@ -40,3 +40,11 @@
 .createListButton:focus {
     background-color: #008000;
 }
+
+.deleteListButton {
+    background-color: #de1e1d;
+}
+
+.deleteListButton:focus {
+    background-color: #c91b1b;
+}
