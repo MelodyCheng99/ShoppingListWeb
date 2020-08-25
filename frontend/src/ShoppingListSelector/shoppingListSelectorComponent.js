@@ -104,34 +104,40 @@ class ShoppingListSelector extends React.Component {
             return <CreateShoppingList />  
         } else {
             return (
-                <div className="mainScreen">
-                    <div className="dropdownContainer">
-                        <Dropdown
-                            placeholder='Select Shopping List'
-                            search
-                            selection
-                            options={this.state.shoppingListOptions}
-                            onChange={this.handleDropdownChange}
-                        />
+                <div>
+                    <div className="mainScreen">
+                        <div className="dropdownContainer">
+                            <Dropdown
+                                placeholder='Select Shopping List'
+                                search
+                                selection
+                                options={this.state.shoppingListOptions}
+                                onChange={this.handleDropdownChange}
+                            />
+                        </div>
+
+                        <button
+                            className="button goToListButton"
+                            onClick={() => this.handleSelectList()}
+                        >
+                            Go To Selected Shopping List
+                        </button>
                     </div>
-                    <button
-                        className="button goToListButton"
-                        onClick={() => this.handleSelectList()}
-                    >
-                        Go To Selected Shopping List
-                    </button>
-                    <button
-                        className="button createListButton"
-                        onClick={() => this.createShoppingList()}
-                    >
-                        Create New Shopping List
-                    </button>
-                    <button
-                        className="button deleteListButton"
-                        onClick={() => this.toDeleteShoppingList()}
-                    >
-                        Delete Selected Shopping List
-                    </button>
+
+                    <div className="createAndDeleteButtonsContainer">
+                        <button
+                            className="button createListButton"
+                            onClick={() => this.createShoppingList()}
+                        >
+                            Create New Shopping List
+                        </button>
+                        <button
+                            className="button deleteListButton"
+                            onClick={() => this.toDeleteShoppingList()}
+                        >
+                            Delete Selected Shopping List
+                        </button>
+                    </div>
 
                     <Confirm
                         content={'Are you sure you want to delete ' + this.state.listName + '?'}
