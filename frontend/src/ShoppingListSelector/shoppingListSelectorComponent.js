@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Confirm } from 'semantic-ui-react'
 import CategorizedList from '../CategorizedList/categorizedListComponent'
 
 import './shoppingListSelectorComponent.css'
@@ -15,8 +15,12 @@ class ShoppingListSelector extends React.Component {
             listNameId: null,
             listName: null,
             items: null,
-            createShoppingList: false
+            createShoppingList: false,
+            toDeleteShoppingList: false
         }
+
+        this.onCancelDelete = this.onCancelDelete.bind(this)
+        this.deleteShoppingList = this.deleteShoppingList.bind(this)
     }
 
     componentDidMount() {
@@ -58,8 +62,36 @@ class ShoppingListSelector extends React.Component {
         })
     }
 
+    toDeleteShoppingList() {
+        this.setState({
+            toDeleteShoppingList: true
+        })
+    }
+
+    onCancelDelete() {
+        this.setState({
+            toDeleteShoppingList: false
+        })
+    }
+
     deleteShoppingList() {
-        // TODO
+        axios.delete(`http://localhost:8000/api/shoppingListList/${this.state.listNameId}`)
+            .then(_ => {
+                axios.get('http://localhost:8000/api/shoppingListList/lists/')
+                    .then(res => this.setState({ 
+                        listNames: res.data,
+                        shoppingListOptions: res.data.map(listName => {
+                            return {
+                                key: listName.id,
+                                value: listName.list_name,
+                                text: listName.list_name
+                            }
+                        }),
+                        toDeleteShoppingList: false
+                    }))
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
     }
 
     render() {
@@ -96,10 +128,16 @@ class ShoppingListSelector extends React.Component {
                     </button>
                     <button
                         className="button deleteListButton"
-                        onClick={() => this.deleteShoppingList()}
+                        onClick={() => this.toDeleteShoppingList()}
                     >
-                        Delete Shopping List
+                        Delete Selected Shopping List
                     </button>
+
+                    <Confirm
+                        content={'Are you sure you want to delete ' + this.state.listName + '?'}
+                        open={this.state.toDeleteShoppingList}
+                        onCancel={this.onCancelDelete}
+                        onConfirm={this.deleteShoppingList} />
                 </div>
             )
         }
