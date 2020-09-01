@@ -10,7 +10,7 @@ class ShoppingListSelector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            listNames: props.listNames,
+            listNames: [],
             shoppingListOptions: [],
             listNameId: null,
             listName: null,
@@ -24,19 +24,22 @@ class ShoppingListSelector extends React.Component {
     }
 
     componentDidMount() {
-        this.getShoppingListOptions()
+        this.getShoppingListNames()
     }
 
-    getShoppingListOptions() {
-        this.setState({
-            shoppingListOptions: this.state.listNames.map(listName => {
-                return {
-                    key: listName.id,
-                    value: listName.list_name,
-                    text: listName.list_name
-                }
-            })
-        })
+    getShoppingListNames() {
+        axios.get('http://localhost:8000/api/shoppingListList/lists/')
+            .then(res => this.setState({ 
+                listNames: res.data,
+                shoppingListOptions: res.data.map(listName => {
+                    return {
+                        key: listName.id,
+                        value: listName.list_name,
+                        text: listName.list_name
+                    }
+                })
+            }))
+            .catch(err => console.log(err));
     }
 
     handleDropdownChange = (e, { value }) => {
